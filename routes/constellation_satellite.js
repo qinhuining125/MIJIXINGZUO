@@ -29,15 +29,33 @@ router.get('/con_find', async (req, res) => {
   ]
   res.send(xingzuo)
 })
+//
+router.post('/con_create', async (req, res) => {
 
-router.post('/', async (req, res) => {
-  console.log("ssssssssssssssss")
-  // const data = req.fields
-  console.log(req.query)
-  console.log(req.query.constellations)
-  console.log(req.fields)
   console.log(req.body)
-  console.log(req.params)
+  res.redirect('/constellation_satellite')
+})
+router.post('/con_edit', async (req, res) => {
+  console.log(req.body)
+  res.redirect('/constellation_satellite')
+})
+router.post('/con_delete', async (req, res) => {
+  console.log(req.body)
+  res.redirect('/constellation_satellite')
+})
+
+router.post('/sat_create', async (req, res) => {
+
+  console.log(req.body)
+  res.redirect('/constellation_satellite')
+})
+router.post('/sat_edit', async (req, res) => {
+  console.log(req.body)
+  res.redirect('/constellation_satellite')
+})
+router.post('/sat_delete', async (req, res) => {
+  console.log(req.body)
+  res.redirect('/constellation_satellite')
 })
 // router.get('/', function (req, res, next) {
 //   var sql = 'SELECT * FROM project';

@@ -66,6 +66,10 @@ app.use(function (req, res, next) {
 //     })
 //   ]
 // }))
+//post请求为空问题
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 // 路由
 routes(app)
 // 错误请求的日志

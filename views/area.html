@@ -53,57 +53,42 @@
 
     </ul>
 
-    <!-- <div class="left">星座管理</div> -->
-    <div class="layui-col-md12">
-
-        <div class="layui-card">
-            <!-- <div class="layui-card-header">标题</div> -->
-            <div class="layui-card-body">
-                <a onclick="con_create();" class="layui-btn ">添加</a>
-
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">星座选择</label>
-                    <div class="layui-input-block" id="constellations">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">星座名称</label>
-                    <label class="layui-form-label" id="nameID"></label>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">星座介绍</label>
-                    <label class="layui-form-label" id="infoID"></label>
-                </div>
-                <div id="Button">
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- 卫星管理 -->
     <div class="layui-col-md12">
         <div class="layui-col-xs3">
-            <div class="layui-card-header">卫星列表
-                <a onclick="sat_create();" class="layui-btn ">添加</a>
+            <div class="layui-form-item">
+                <label class="layui-form-label">区域类别</label>
+                <div class="layui-input-block">
+                    <select name="constellation" lay-filter="aihao" onchange="getType(this[selectedIndex].value)">
+                        <option value="">选择类型</option>
+                        <option value="1">国土区域</option>
+                        <option value="1">国内重点区域</option>
+                        <option value="1">一带一路重点区域</option>
+                        <option value="1">海外重点区域</option>
+                    </select>
+                </div>
             </div>
             <div style="padding: 20px; background-color: rgb(85, 73, 73);">
                 <div class="layui-row layui-col-space15">
-                    <div style="height:380px;overflow:auto;background:#EEEEEE;">
+                    <div style="height:500px;overflow:auto;background:#EEEEEE;">
                         <div id="card1">
 
                         </div>
                     </div>
-                    <!-- 卡片 -->
                 </div>
+            </div>
+            <div class="">
+                <button type="reset" onclick="setNo()" class="layui-btn layui-btn-primary">删除</button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">增加</button>
             </div>
         </div>
         <div class="layui-col-xs9">
             <div id="centerDetails"> &nbsp;
-             
+                展示数据
             </div>
         </div>
     </div>
+
     <div id="con_create" style="display: none;">
         <div class="layui">星座添加页面</div>
         <form class="layui-form" action="constellation_satellite/con_create" method="POST">
@@ -349,16 +334,13 @@
 
         }
 
-        var xingzuos
         $.ajax({
             //使用JQuery内置的Ajax方法
             type: "get", //
             async: true, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-            url: "/constellation_satellite/con_find", //请求发送到show/temperature
+            url: "/area/area_find", //请求发送到show/temperature
             dataType: "json", //返回数据形式为json
-            success: function (xingzuo) {
-                xingzuos = xingzuo
-                //请求成功时执行该函数内容，result即为服务器返回的json对象
+            success: function (area_lists) {
                 var constellations = '<select name="constellation" lay-filter="aihao"  onchange="gradeChange(this[selectedIndex].value)">\
                     <option value="">选择星座</option>'
                 for (var i = 0; i < xingzuo.length; i++) {

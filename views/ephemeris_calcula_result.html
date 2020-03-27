@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>管理员遥感数据查询展示页面</title>
+    <!-- layui -->
+    <link rel="stylesheet" href="/js/layui/css/layui.css" media="all">
+    <script src="/js/layui/layui.js" charset="utf-8"></script>
+    <script src="/js/jquery/jquery-3.3.1.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <style>
+        .left {
+            /* position: absolute; */
+            left: 15px;
+            margin: 5px 2% 5px 2%;
+            height: 90px;
+            width: 96%;
+            background: rgb(91, 153, 94);
+            color: rgb(8, 7, 7);
+            font-size: 30px;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .tail {
+            /* position: absolute; */
+            left: 15px;
+            margin: 0px 2% 10px 2%;
+            height: 90px;
+            width: 96%;
+            background: rgb(91, 153, 94);
+            color: rgb(8, 7, 7);
+            font-size: 30px;
+            text-align: center;
+            line-height: 60px;
+        }
+    </style>
+    <ul class="layui-nav">
+        <li class="layui-nav-item"><a href="demand_submit">星历计算</a></li>
+        <li class="layui-nav-item"><a href="demand_management">轨道预报</a></li>
+        <li class="layui-nav-item"><a href="user_image_find">星座与卫星管理</a></li>
+        <li class="layui-nav-item"><a href="user_image_find_result">区域管理</a></li>
+        <li class="layui-nav-item"><a href="image_download_schedule">星座覆盖分析</a></li>
+        <li class="layui-nav-item"><a href="failure_block">股改能力对比</a></li>
+        <li class="layui-nav-item"><a href="admin_image_find">频率冲突分析</a></li>
+        <li class="layui-nav-item"><a href="admin_image_find">覆盖效果仿真</a></li>
+        <li class="layui-nav-item"><a href="admin_image_find">星岛衰减与补偿计算</a></li>
+
+        <!-- <li class="layui-nav-item"><a href="image_deistribution_monitor">用户遥感数据查询结果页面</a></li> -->
+
+    </ul>
+    <div class="left">星历计算结果</div>
+    <div class="layui-form">
+        <table class="layui-table" id="table_result">
+            <colgroup>
+                <col width="150">
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>卫星名</th>
+                    <th>提出时间</th>
+                    <th>速度</th>
+                    <th>经度</th>
+                    <th>纬度</th>
+                    <th>圈数</th>
+                </tr>
+            </thead>
+           
+        </table>
+        <script>
+            $.ajax({
+                type: "get",
+                async: true, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                url: "/ephemeris_calcula/result_data", //请求发送到show/temperature
+                dataType: "json", //返回数据形式为json
+                success: function (xingli_result) {
+                    console.log(xingli_result[1].sat_name)
+                    var table_result='<tbody>'
+                    for (var i = 0; i < xingli_result.length; i++) {
+                     table_result+=' <tr>\
+                    <th>'+xingli_result[1].sat_name+'</th>\
+                    <th>'+xingli_result[1].propose_time+'</th>\
+                    <th>'+xingli_result[1].speed+'</th>\
+                    <th>'+xingli_result[1].lon+'</th>\
+                    <th>'+xingli_result[1].lat+'</th>\
+                    <th>'+xingli_result[1].cycle+'</th>\
+                    </tr>'            
+                    }
+                    table_result += '</tbody>'
+                    $("#table_result").append(table_result);
+                }
+            })
+
+        </script>
+    </div>
+
+</body>
+
+</html>

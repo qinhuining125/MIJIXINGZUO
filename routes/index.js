@@ -6,7 +6,7 @@ module.exports = function (app) {
   app.use('/ephemeris_calcula', require('./ephemeris_calcula'))//星历计算
   app.use('/prediction', require('./prediction'))//预报
   app.use('/posts', require('./posts'))//测试
-  // app.use('/comments', require('./comments'))
+  app.use('/area', require('./area'))//区域
 
   // 404 page
   app.use(function (req, res) {
