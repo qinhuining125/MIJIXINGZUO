@@ -1,0 +1,7 @@
+.segment pre{
+	height: 40px;
+	overflow: hidden;
+}
+.shenglue{
+	display:block !important;
+}

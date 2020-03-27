@@ -1,0 +1,52 @@
+window.onload = function(){
+		   			$("#video-1-1").css("background",siumPath[0]);
+		   			$("#video-1-2").css("background",siumPath[1]);
+		   			$("#video-1-3").css("background",siumPath[2]);
+		   			$("#video-1-4").css("background",siumPath[3]);
+		   			$("#video-1-5").css("background",siumPath[4]);
+		   			$("#video-1-6").css("background",siumPath[5]);
+		   			$("#video-2-1").css("background",siumPath[6]);
+		   			$("#video-2-2").css("background",siumPath[7]);
+		   			$("#video-2-3").css("background",siumPath[8]);
+		   			$("#video-2-4").css("background",siumPath[9]);
+		   			$("#video-2-5").css("background",siumPath[10]);
+		   			$("#video-2-6").css("background",siumPath[11]);
+		   			$("#video-3-1").css("background",siumPath[12]);
+		   			$("#video-3-2").css("background",siumPath[13]);
+		   			$("#video-3-3").css("background",siumPath[14]);
+		   			$("#video-3-4").css("background",siumPath[15]);
+		   			$("#video-3-5").css("background",siumPath[16]);
+		   			$("#video-3-6").css("background",siumPath[17]);
+		   			$("#video-4-1").css("background",siumPath[18]);
+		   			$("#video-4-2").css("background",siumPath[19]);
+		   			$("#video-4-3").css("background",siumPath[20]);
+		   			$("#video-4-4").css("background",siumPath[21]);
+		   			$("#video-4-5").css("background",siumPath[22]);
+		   			$("#video-4-6").css("background",siumPath[23]);
+		   			//name.js
+		   			$("#video-1-1 .video-thumbnail-text").append("<div>"+VName[0]+"</div>");
+		   			$("#video-1-2 .video-thumbnail-text").append("<div>"+VName[1]+"</div>");
+		   			$("#video-1-3 .video-thumbnail-text").append("<div>"+VName[2]+"</div>");
+		   			$("#video-1-4 .video-thumbnail-text").append("<div>"+VName[3]+"</div>");
+		   			$("#video-1-5 .video-thumbnail-text").append("<div>"+VName[4]+"</div>");
+		   			$("#video-1-6 .video-thumbnail-text").append("<div>"+VName[5]+"</div>");
+		   			$("#video-2-1 .video-thumbnail-text").append("<div>"+VName[6]+"</div>");
+		   			$("#video-2-2 .video-thumbnail-text").append("<div>"+VName[7]+"</div>");
+		   			$("#video-2-3 .video-thumbnail-text").append("<div>"+VName[8]+"</div>");
+		   			$("#video-2-4 .video-thumbnail-text").append("<div>"+VName[9]+"</div>");
+		   			$("#video-2-5 .video-thumbnail-text").append("<div>"+VName[10]+"</div>");
+		   			$("#video-2-6 .video-thumbnail-text").append("<div>"+VName[11]+"</div>");
+		   			$("#video-3-1 .video-thumbnail-text").append("<div>"+VName[12]+"</div>");
+		   			$("#video-3-2 .video-thumbnail-text").append("<div>"+VName[13]+"</div>");
+		   			$("#video-3-3 .video-thumbnail-text").append("<div>"+VName[14]+"</div>");
+		   			$("#video-3-4 .video-thumbnail-text").append("<div>"+VName[15]+"</div>");
+		   			$("#video-3-5 .video-thumbnail-text").append("<div>"+VName[16]+"</div>");
+		   			$("#video-3-6 .video-thumbnail-text").append("<div>"+VName[17]+"</div>");
+		   			$("#video-4-1 .video-thumbnail-text").append("<div>"+VName[18]+"</div>");
+		   			$("#video-4-2 .video-thumbnail-text").append("<div>"+VName[19]+"</div>");
+		   			$("#video-4-3 .video-thumbnail-text").append("<div>"+VName[20]+"</div>");
+		   			$("#video-4-4 .video-thumbnail-text").append("<div>"+VName[21]+"</div>");
+		   			$("#video-4-5 .video-thumbnail-text").append("<div>"+VName[22]+"</div>");
+		   			$("#video-4-6 .video-thumbnail-text").append("<div>"+VName[23]+"</div>");
+
+		   		}

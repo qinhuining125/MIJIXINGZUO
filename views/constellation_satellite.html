@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>管理员遥感数据查询展示页面</title>
+    <!-- layui -->
+    <link rel="stylesheet" href="/js/layui/css/layui.css" media="all">
+    <script src="/js/layui/layui.js" charset="utf-8"></script>
+    <script src="/js/jquery/jquery-3.3.1.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <style>
+        .left {
+            /* position: absolute; */
+            left: 15px;
+            margin: 5px 2% 5px 2%;
+            height: 90px;
+            width: 96%;
+            background: rgb(91, 153, 94);
+            color: rgb(8, 7, 7);
+            font-size: 30px;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .tail {
+            /* position: absolute; */
+            left: 15px;
+            margin: 0px 2% 10px 2%;
+            height: 90px;
+            width: 96%;
+            background: rgb(91, 153, 94);
+            color: rgb(8, 7, 7);
+            font-size: 30px;
+            text-align: center;
+            line-height: 60px;
+        }
+    </style>
+    <ul class="layui-nav">
+        <li class="layui-nav-item"><a href="demand_submit">星历计算</a></li>
+        <li class="layui-nav-item"><a href="demand_management">轨道预报</a></li>
+        <li class="layui-nav-item"><a href="user_image_find">星座与卫星管理</a></li>
+        <li class="layui-nav-item"><a href="user_image_find_result">区域管理</a></li>
+        <li class="layui-nav-item"><a href="image_download_schedule">星座覆盖分析</a></li>
+        <li class="layui-nav-item"><a href="failure_block">股改能力对比</a></li>
+        <li class="layui-nav-item"><a href="admin_image_find">频率冲突分析</a></li>
+        <li class="layui-nav-item"><a href="admin_image_find">覆盖效果仿真</a></li>
+        <li class="layui-nav-item"><a href="admin_image_find">星岛衰减与补偿计算</a></li>
+
+        <!-- <li class="layui-nav-item"><a href="image_deistribution_monitor">用户遥感数据查询结果页面</a></li> -->
+
+    </ul>
+    <!-- <div class="left">星座管理</div> -->
+    <div class="layui-col-md12">
+
+        <div class="layui-card">
+            <!-- <div class="layui-card-header">标题</div> -->
+            <div class="layui-card-body">
+                内容
+                <div class="layui-form-item">
+                    <label class="layui-form-label">星座选择</label>
+                    <div class="layui-input-block" id="constellations">
+                        <!-- <select name="interest" lay-filter="aihao">
+                            <option value="星座2">星座1</option>
+                            <option value="星座2" selected="">星座2</option>
+                            <option value="星座2">星座2</option>
+                            <option value="星座2">星座2</option>
+                            <option value="星座2">星座2</option>
+                        </select> -->
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">星座名称</label>
+                    <label class="layui-form-label" id="nameID"></label>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">星座介绍</label>
+                    <label class="layui-form-label" id="infoID"></label>
+                </div>
+                
+                <div id="Button">
+
+                </div>
+                <a href="https://www.baidu.com/">
+                    <button type="button" class="layui-btn">三维展示</button>
+                </a>
+                <a onclick="create();" class="layui-btn layui-inline fl w130">添加</a>
+                <!-- <a onclick="edit();" class="layui-btn layui-inline fl w130">修改</a>
+                <a onclick="delect();" class="layui-btn layui-inline fl w130">删除</a> -->
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        //增加弹窗
+        function create() {
+            //页面层
+            layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['600px', '600px'], //宽高
+                // content: '/ephemeris_calcula' //调到新增页面
+                content: $('#create')
+            });
+        }
+        function edit() {
+            //页面层
+            layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['600px', '600px'], //宽高
+                // content: '/ephemeris_calcula' //调到新增页面
+                content: $('#create')
+            });
+        }
+        
+    </script>
+    <!-- 卫星管理 -->
+    <div class="layui-col-md12">
+        <div class="layui-col-xs3">
+            <div class="layui-card-header">卫星列表</div>
+            <form class="layui-form" action="">
+                <div style="padding: 20px; background-color: rgb(85, 73, 73);">
+                    <div class="layui-row layui-col-space15">
+                        <div style="height:300px;overflow:auto;background:#EEEEEE;">
+                            <div id="card1">
+
+                            </div>
+                        </div>
+                        <!-- 卡片 -->
+                    </div>
+                </div>
+                <div class="">
+                    <button type="reset" onclick="setNo()" class="layui-btn layui-btn-primary">删除</button>
+                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">增加</button>
+                </div>
+            </form>
+        </div>
+        <div class="layui-col-xs9">
+            <div id="centerDetails"> &nbsp;
+                展示数据
+            </div>
+        </div>
+    </div>
+    <div id="create">
+        <div class="layui">星座添加页面</div>
+        <form class="layui-form" method="POST">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">星座名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="sat_name" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">普通文本域</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容" name="sat_introductio" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin: 9px 2% 15px 20%;">
+                    <button type="submit" class="layui-btn" lay-submit="" id="submit" lay-filter="demo1">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="edit">
+        <div class="layui">星座添加页面</div>
+        <form class="layui-form" method="POST">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">星座名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="sat_name" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">普通文本域</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容" name="sat_introductio" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block" style="margin: 9px 2% 15px 20%;">
+                    <button type="submit" class="layui-btn" lay-submit="" id="submit" lay-filter="demo1">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        var xingzuos
+        $.ajax({
+            //使用JQuery内置的Ajax方法
+            type: "get", //
+            async: true, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url: "/constellation_satellite/con_find", //请求发送到show/temperature
+            dataType: "json", //返回数据形式为json
+            success: function (xingzuo) {
+                xingzuos = xingzuo
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                var constellations = '<select name="interest" lay-filter="aihao"  onchange="gradeChange(this[selectedIndex].value)">\
+                    <option value="">选择星座</option>'
+                for (var i = 0; i < xingzuo.length; i++) {
+                    console.log(xingzuo[i])
+                    constellations += '<option value="' + xingzuo[i].id + '">' + xingzuo[i].con_name + '</option>'
+                }
+                constellations += '</div>'
+                $("#constellations").append(constellations);
+
+            }
+        })
+        function gradeChange(value) {
+            for (var i = 0; i < xingzuos.length; i++) {
+                if (xingzuos[i].id == value) {
+                    $("#nameID").html(xingzuos[i].con_name);
+                    $("#infoID").html(xingzuos[i].con_introduction);
+                    var buttons='<a onclick="edit('+xingzuos[i]+');" class="layui-btn layui-inline fl w130">修改</a>\
+                <a onclick="delect('+xingzuos[i].id+');" class="layui-btn layui-inline fl w130">删除</a>'
+                $("#Button").html(buttons);   
+                console.log(xingzuos[i].con_introduction)
+                    var card1 = "";
+                    // $("#card1").htnl('');
+                    for (var j = 0; j < xingzuos[i].list.length; j++) {
+                        var temp = JSON.stringify(xingzuos[i].list[j]).replace(/\"/g, "'");
+                        card1 += '<div class="layui-col-md12"  style=" margin: 5px 2% 5px 2%;">\
+                            <div class="layui-card" id="divCard" onclick="sat_info('+ temp + ')">\
+                                <div class="layui-card-body">\
+                                    <div class="layui">卫星名：'+ xingzuos[i].list[j].sat_name + '</div>\
+                                    <input type="checkbox" lay-filter=""  name="checkbox[]" value="'+ xingzuos[i].list[j].id + '" title="" >\
+                                </div>\
+                            </div>\
+                        </div>'
+
+                    }
+                    $("#card1").html(card1);
+                }
+            }
+        }
+        function sat_info(data) {
+
+            $('#centerDetails').html("");
+            var centerDetails = '基本信息\
+            <table class="layui-table" lay-even="" lay-skin="nob">\
+            <colgroup>\
+            <col width="15">\
+            <col width="20">\
+            <col>\
+            </colgroup>\
+            <thead>\
+            <tr style="height:10px">\
+            <th>卫星名称：'+ data.sat_name + '</th>\
+            <th>所属星座：'+ data.con + '</th>\
+            </tr>\
+            </thead>\
+            <tbody>\
+            <tr style="height:1px">\
+            <td>卫星介绍:'+ data.sat_introductio + '</td>\
+            </tr>\
+            </tbody>\
+            </table>\
+            卫星轨道数据<table class="layui-table" lay-even="" lay-skin="nob">\
+            <colgroup>\
+            <col width="15">\
+            <col width="20">\
+            <col>\
+            </colgroup>\
+            <thead>\
+            <tr style="height:10px">\
+            <th>历元时间：'+ data.lytime + '</th>\
+            <th>间隔:'+ data.lytime_msec + '</th>\
+            </tr>\
+            </thead>\
+            <tbody>\
+            <tr style="height:1px">\
+            <td>半长轴：'+ data.a + '</td>\
+            <td>偏心率:'+ data.e + '</td>\
+            </tr>\
+            <tr>\
+            <td>倾角：'+ data.i + '</td>\
+            <td>升交赤经：'+ data.raan + '</td>\
+            </tr>\
+            <tr>\
+            <td>近地点俯角：'+ data.aop + '</td>\
+            <td>平近点角：'+ data.m + '</td>\
+            </tr>\
+            </tbody>\
+            </table>\
+            卫星荷载参数<table class="layui-table" lay-even="" lay-skin="nob">\
+            <colgroup>\
+            <col width="15">\
+            <col width="20">\
+            <col>\
+            </colgroup>\
+            <thead>\
+            <tr style="height:10px">\
+            <th>测控频率:'+ data.control_frequency + '</th>\
+            <th>数传频率:'+ data.data_frequency + '</th>\
+            </tr>\
+            </thead>\
+            <tbody>\
+            <tr style="height:1px">\
+            <td>视场角：'+ data.payload_field + '</td>\
+            <td>测摆能力：'+ data.payload_rang + '</td>\
+            </tr>\
+            <tr>\
+            <td>幅宽：'+ data.sat_width + '</td>\
+            </tr>\
+            </tbody>\
+            </table>'
+
+            $("#centerDetails").append(centerDetails);
+        }
+
+    </script>
+    <script>
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+            laydate.render({
+                elem: '#test10'
+                , type: 'datetime'
+                , format: 'yyyy/MM/ddTHH:mm:ss.000Z'
+                , range: true
+            });
+            laydate.render({
+                elem: '#test11'
+                , type: 'datetime'
+                , format: 'yyyy/MM/ddTHH:mm:ss.000Z'
+                , range: true
+            });
+            //创建一个编辑器
+            var editIndex = layedit.build('LAY_demo_editor');
+            //自定义验证规则
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题至少得5个字符啊';
+                    }
+                }
+            });
+            function checkBoxResult(name) {
+                var arr = new Array();
+                $("input[name=" + name + "]").each(function (i, d) {
+                    if (d.checked) {
+                        arr.push(d.value);
+                    }
+                })
+                return arr
+            }
+           //监听提交
+            form.on('submit(demo1)', function (data) {
+                layer.alert(JSON.stringify(data.field), {
+                    title: '最终的提交信息'
+                })
+                $.ajax({
+                    //使用JQuery内置的Ajax方法
+                    type: "post", //post请求方式
+                    async: true, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+                    // url: "/demand_management", //请求发送到
+                    dataType: "json", //返回数据形式为json
+                    data: data.field,
+                    success: function (datajson) {
+                        // alert("成功")
+                        // var tableQuertResult = '< tbody >';
+                        for (var i = 0; i < datajson.cards.length; i++) {
+                            tableQuertResult += '<tr>\
+                            <td>'+ datajson.cards[i].id + '</td>\
+                            <td>'+ datajson.cards[i].application_node + '</td>\
+                            <td>'+ datajson.cards[i].priority + '</td>\
+                            <td>'+ datajson.cards[i].speed + '</td>\
+                            <td>'+ datajson.cards[i].security_level + '</td>\
+                            <td>'+ datajson.cards[i].experience + '</td>\
+                            <td>'+ datajson.cards[i].timesolt + '</td>\
+                            <td>'+ datajson.cards[i].aging + '</td>\
+                        </tr>'
+                        }
+                        // tableQuertResult += '</tbody >'
+                        $("#tableQuertResult").html(tableQuertResult);
+                    },
+                    error: function (errorMsg) {
+                        alert("失败");
+                    }
+                });
+                return false;
+            });
+        });
+        layui.use(['laypage', 'layer'], function () {
+            var laypage = layui.laypage
+                , layer = layui.layer;
+            //总页数大于页码总数
+            laypage.render({
+                elem: 'demo1'
+                , count: 70 //数据总数
+                , jump: function (obj) {
+                    // console.log(obj)
+                }
+            });
+        })
+    </script>
+
+</body>
+
+</html>

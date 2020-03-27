@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>管理员遥感数据查询展示页面</title>
+    <!-- layui -->
+    <link rel="stylesheet" href="/js/layui/css/layui.css" media="all">
+    <script src="/js/layui/layui.js" charset="utf-8"></script>
+    <script src="/js/jquery/jquery-3.3.1.min.js" charset="utf-8"></script>
+</head>
+<body>
+    //获取当前选择的值
+    <select id="sltLB" name="sltLB" onchange='btnChange(this[selectedIndex].value);'>
+    <option value="1" selected="selected">全校</option>
+    <option value="2">教师</option>
+    <option value="3">学生</option>
+    </select>
+    
+     
+ <script>
+    function btnChange(values) {
+    //如果选中的是学生，显示第二个下拉框
+  alert(values)
+    }
+
+ </script>
+
+
+</body>
+
+</html>
